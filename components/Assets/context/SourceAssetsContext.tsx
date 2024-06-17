@@ -3,18 +3,24 @@ import { useFetchAssetData } from '../hooks/useFetchAssetData';
 import { Asset } from '../types';
 
 interface SourceAssetContextProviderProps {
-    children: ReactNode; 
+    children: ReactNode;
 }
 
-export const SourceAssetsContext = createContext<{ sourceAssets: Asset[] | undefined; setSourceAssets: React.Dispatch<React.SetStateAction<Asset[] | undefined>> }>({
-    sourceAssets: undefined,
-    setSourceAssets: () => {//default value
-    }
+interface SourceAssetsContextValue {
+    sourceAssets: Asset[];
+    setSourceAssets: React.Dispatch<React.SetStateAction<Asset[]>>;
+}
+
+export const SourceAssetsContext = createContext<SourceAssetsContextValue>({
+    sourceAssets: [],
+    setSourceAssets: () => {
+        // Default value, no operation function
+    },
 });
 
 export const SourceAssetsContextProvider: React.FC<SourceAssetContextProviderProps> = ({ children }) => {
     const { assets: initialAssets, loading, error } = useFetchAssetData();
-    const [sourceAssets, setSourceAssets] = useState<Asset[] | undefined>(initialAssets);
+    const [sourceAssets, setSourceAssets] = useState<Asset[]>(initialAssets);
 
     useEffect(() => {
         setSourceAssets(initialAssets);

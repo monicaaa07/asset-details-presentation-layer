@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { Asset } from '../types';
 
 interface UseFetchAssetDataResult {
-    assets: Asset[] | undefined;
+    assets: Asset[];
     loading: boolean;
     error: string | null;
 }
 
 export const useFetchAssetData = (): UseFetchAssetDataResult => {
-    const [assets, setAssets] = useState<Asset[] | undefined>(undefined);
+    const [assets, setAssets] = useState<Asset[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 

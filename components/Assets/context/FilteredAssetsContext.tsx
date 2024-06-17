@@ -7,15 +7,22 @@ interface FilteredAssetContextProviderProps {
 }
 
 interface FilteredAssetContextValue {
-    filteredAssets: Asset[] | undefined;
-    setFilteredAssets: React.Dispatch<React.SetStateAction<Asset[] | undefined>>;
+    filteredAssets: Asset[];
+    setFilteredAssets: React.Dispatch<React.SetStateAction<Asset[]>>;
 }
 
-export const FilteredAssetsContext = createContext<FilteredAssetContextValue | undefined>(undefined);
+const defaultValue: FilteredAssetContextValue = {
+    filteredAssets: [],
+    setFilteredAssets: () => {
+      console.warn('setFilteredAssets was called without a provider');
+    },
+  };
+
+export const FilteredAssetsContext = createContext<FilteredAssetContextValue >(defaultValue);
 
 export const FilteredAssetsContextProvider: React.FC<FilteredAssetContextProviderProps> = ({ children }) => {
     const { sourceAssets } = useContext(SourceAssetsContext);
-    const [filteredAssets, setFilteredAssets] = useState<Asset[] | undefined>(sourceAssets);
+    const [filteredAssets, setFilteredAssets] = useState<Asset[]>(sourceAssets);
 
     return (
         <FilteredAssetsContext.Provider value={{ filteredAssets, setFilteredAssets }}>
