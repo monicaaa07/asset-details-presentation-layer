@@ -26,7 +26,7 @@ export interface Enrich {
 export interface Asset {
     _id: string;
     created: string; // Assuming created is a string representation of a date
-    criticalityFactor: number | null;
+    criticalityFactor: number;
     enrich: Enrich;
     name: string;
     owner: Owner;

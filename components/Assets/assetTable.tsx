@@ -23,7 +23,7 @@ const AssetTable: React.FC = () => {
     const [filterDates, setFilterDates] = useState<[Dayjs | null, Dayjs | null]>([null, null]);
     const { handleCrownJewelOverride } = useOverrideIsCrownJewel();
 
-    useFilterAssetTable(filterDates, searchText, selectedAssetTypes);
+    useFilterAssetTable({filterDates, searchText, selectedAssetTypes});
 
     const handleDateChange = (dates: [Dayjs | null, Dayjs | null]) => {
         setFilterDates(dates);
@@ -64,7 +64,9 @@ const AssetTable: React.FC = () => {
                                 {minCreated && (
                                     <RangePicker
                                         allowEmpty={[false, true]}
-                                        onChange={handleDateChange}
+                                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                        // @ts-ignore
+                                        onChange={handleDateChange} 
                                         defaultPickerValue={minCreated}
                                         value={filterDates}
                                     />

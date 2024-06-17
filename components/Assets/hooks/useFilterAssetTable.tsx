@@ -1,14 +1,18 @@
 import { useEffect, useContext } from 'react';
-import dayjs from 'dayjs';
+import dayjs,{Dayjs} from 'dayjs';
 import { SourceAssetsContext } from '../context/SourceAssetsContext';
 import { FilteredAssetsContext } from '../context/FilteredAssetsContext';
 import isBetween from 'dayjs/plugin/isBetween';
 
 dayjs.extend(isBetween);
 
+type UseFilterAssetTableProps = {
+    filterDates: [Dayjs | null, Dayjs | null];
+    searchText: string;
+    selectedAssetTypes: string[];
+};
 
-
-const useFilterAssetTable = ( filterDates, searchText, selectedAssetTypes) => {
+const useFilterAssetTable = ( {filterDates, searchText, selectedAssetTypes} : UseFilterAssetTableProps) => {
     const { sourceAssets } = useContext(SourceAssetsContext)
     const { setFilteredAssets } = useContext(FilteredAssetsContext)
 
